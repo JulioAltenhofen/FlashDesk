@@ -1,0 +1,53 @@
+<%- include("../layouts/header", {title: 'Atualização de Pedido' }) %>
+
+    <%- include("../layouts/menu") %>
+
+    <div class="container">
+        <div class="card">
+          <div class="card-content">
+            <div class="columns">
+                <div class="column is-four-fifths">
+                  <h1 class="title is-4">Dados do Usuário</h1>
+                </div>
+                <div class="column is-one-fifth">
+                  <div class="buttons is-pulled-right">
+                    <a href="/" class="button is-small">Voltar</a>
+                  </div>
+                </div>
+              </div>
+            <div class="content">
+              <form action="/pessoas/<%= pessoa.id %>?_method=put" method="POST">
+                <div class="field">
+                  <label class="label">Nome:</label>
+                  <div class="control">
+                    <input class="input" type="text" name="nome" value="<%= pessoa.nome %>">
+                  </div>
+                </div>
+                
+                <div class="space-after">
+                  <h3 class="title is-5 space-before">Endereço</h3>
+                  <div class="field">
+                    <label class="label">Rua:</label>
+                    <div class="control">
+                      <input class="input" type="text" name="rua" value="<%= pessoa.endereco.rua %>">
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Cidade:</label>
+                    <div class="control">
+                      <input class="input" type="text" name="cidade" value="<%= pessoa.endereco.cidade %>">
+                    </div>
+                  </div>
+                </div>
+                <div class="field is-grouped is-grouped-centered">
+                  <div class="control">
+                    <button class="button is-success" type="submit">Salvar Dados</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <%- include("../layouts/footer") %>

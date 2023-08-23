@@ -1,0 +1,65 @@
+<%- include("../layouts/header", {title: 'Produtos'}) %>
+
+<%- include("../layouts/menu") %>
+
+<section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column column--large">
+          <h1 class="title is-4">
+            <span class="icon">
+              <i class="fas fa-shopping-cart"></i>
+            </span>
+            Produtos do Pedido <%= pedido.id %> de <%= pessoa.nome %>
+          </h1>
+        </div>
+        <div class="column column--small">
+          <div class="is-flex is-justify-flex-end">
+            <a href="/pedidos/<%= pedido.pessoaId%>" class="button is-small">
+              Voltar
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <hr />
+  
+      <% pedido.produtos.forEach(produto => { %>
+      <div class="columns">
+        <div class="column">
+          <div class="card card--product">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-6"><%= produto.descricao %></p>
+                  <p class="subtitle is-7">Valor: R$ <%= produto.preco %></p>
+                  <p class="subtitle is-7">Cor: <%= produto.pedidoProduto.cor %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+      
+      <div class="columns">
+        <div class="column column--large">
+          <div class="card card--total">
+            <div class="card-content">
+              <p class="subtitle is-6">Valor Total do Pedido:</p>
+              <p class="title is-5">R$ <%= pedido.valor %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+  
+  
+  
+  
+  
+
+
+  <%- include("../layouts/footer") %>

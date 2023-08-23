@@ -1,0 +1,55 @@
+<%- include("../layouts/header", {title: 'Atualização de Produtos'}) %>
+
+<%- include("../layouts/menu") %>
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-four-fifths">
+              <h1 class="title is-4">Atualização de Produto</h1>
+            </div>
+            <div class="column is-one-fifth">
+              <div class="buttons is-pulled-right">
+                <a href="/produtos" class="button is-small">Voltar</a>
+              </div>
+            </div>
+          </div>
+      <% if (produto.error) { %>
+        <p class="is-danger help"><%= produto.error %></p>
+      <% } %>
+      <form action="/produtos/<%= produto.id %>?_method=put" method="POST">
+        <div class="field">
+          <label class="label">Descrição</label>
+          <div class="control">
+            <input class="input" type="text" name="descricao" value="<%= produto.descricao %>" required>
+          </div>
+        </div>
+  
+        <div class="field">
+          <label class="label">Preço</label>
+          <div class="control">
+            <input class="input" type="number" name="preco" value="<%= produto.preco %>" step="0.01" required>
+          </div>
+        </div>
+  
+        <div class="field">
+          <label class="label">Cores</label>
+          <div class="control">
+            <% cores.forEach(cor => { %>
+            <label class="checkbox">
+              <input type="checkbox" name="coresIds[]" value="<%= cor.id %>" <% if (produto.cors.some(c => c.id === cor.id)) { %> checked <% } %>> <%= cor.cor %>
+            </label>
+            <% })%>
+          </div>
+        </div>
+  
+        <div class="field">
+          <div class="control">
+            <button type="submit" class="button is-success">Atualizar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  
+  <%- include("../layouts/footer") %>

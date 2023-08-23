@@ -1,0 +1,72 @@
+<%- include("../layouts/header", {title: 'Cadastro de Usuários'}) %>
+
+<%- include("../layouts/menu") %>
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-four-fifths">
+              <h1 class="title is-4">Cadastro de Usuário</h1>
+            </div>
+            <div class="column is-one-fifth">
+              <div class="buttons is-pulled-right">
+                <a href="/" class="button is-small">Voltar</a>
+              </div>
+            </div>
+          </div>
+      <form action="/pessoas" method="POST">
+        <div class="field">
+          <label class="label">Nome</label>
+          <div class="control">
+            <input class="input" type="text" name="nome" placeholder="Digite seu nome" required>
+          </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Rua</label>
+            <div class="control">
+              <input class="input" type="text" name="rua" placeholder="Digite sua rua" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Cidade</label>
+            <div class="control">
+              <input class="input" type="text" name="cidade" placeholder="Digite sua cidade" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Username</label>
+            <div class="control">
+              <input class="input" type="text" name="username" placeholder="Digite seu username" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Senha</label>
+            <div class="control">
+              <input class="input" type="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Tipo de Usuário</label>
+            <select class="input" name="role" required placeholder="Selecione o tipo de usuário">
+              <option value="" disabled selected>Selecione o tipo de usuário</option>
+              <option value="user">Usuário</option>
+              <option value="admin">Administrador</option>
+          </select>
+          </div>
+          
+  
+        <div class="field">
+          <div class="control">
+            <button type="submit" class="button is-success">Cadastrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  
+  <%- include("../layouts/footer") %>

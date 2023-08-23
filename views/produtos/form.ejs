@@ -1,0 +1,55 @@
+<%- include("../layouts/header", {title: 'Cadastro de Produtos'}) %>
+
+<%- include("../layouts/menu") %>
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-four-fifths">
+              <h1 class="title is-4">Cadastro de Produto</h1>
+            </div>
+            <div class="column is-one-fifth">
+              <div class="buttons is-pulled-right">
+                <a href="/produtos" class="button is-small">Voltar</a>
+              </div>
+            </div>
+          </div>
+      <% if (produto.error) { %>
+        <p class="is-danger help"><%= produto.error %></p>
+      <% } %>
+      <form action="/produtos" method="POST">
+        <div class="field">
+          <label class="label">Descrição</label>
+          <div class="control">
+            <input class="input" type="text" name="descricao" placeholder="Digite a descrição do produto" required>
+          </div>
+        </div>
+  
+        <div class="field">
+          <label class="label">Preço</label>
+          <div class="control">
+            <input class="input" type="number" name="preco" placeholder="Digite o preço do produto" step="0.01" required>
+          </div>
+        </div>
+  
+        <div class="field">
+          <label class="label">Cores</label>
+          <div class="control">
+            <% cores.forEach(cor => { %>
+            <label class="checkbox">
+              <input type="checkbox" name="coresIds[]" value="<%= cor.id %>"> <%= cor.cor %>
+            </label>
+            <% })%>
+          </div>
+        </div>
+  
+        <div class="field">
+          <div class="control">
+            <button type="submit" class="button is-success">Cadastrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  
+  <%- include("../layouts/footer") %>

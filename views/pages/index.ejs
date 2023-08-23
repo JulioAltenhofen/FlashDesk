@@ -1,0 +1,37 @@
+ <%- include("../layouts/header", {title: 'Início'}) %>
+
+ <%- include("../layouts/menu") %>
+
+ <section class="section hero is-primary is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title is-size-1">
+          Bem-vindo(a)!
+        </h1>
+        <h2 class="subtitle is-size-4">
+          O que você deseja fazer?
+        </h2>
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="box custom-box-bg">
+              <h3 class="title is-size-3 ">Pedidos</h3>
+              <p class="subtitle is-size-5 ">Visualize e gerencie seus pedidos.</p>
+              <a href="/pedidos/<%= pessoaId %>" class="button is-link is-medium">Ver Pedidos</a>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="box custom-box-bg">
+              <h3 class="title is-size-3 ">Produtos</h3>
+              <p class="subtitle is-size-5 ">Explore nossa variedade de produtos.</p>
+              <a href="/produtos" class="button is-link is-medium">Ver Produtos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+
+  <%- include("../layouts/footer") %>

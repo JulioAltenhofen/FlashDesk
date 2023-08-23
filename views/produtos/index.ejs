@@ -1,0 +1,66 @@
+<%- include("../layouts/header", {title: 'Produtos'}) %>
+
+<%- include("../layouts/menu") %>
+
+<section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-four-fifths">
+          <h1 class="title is-4">Produtos</h1>
+        </div>
+        <div class="column is-one-fifth">
+          <div class="buttons is-pulled-right">
+            <a href="/produtos/novo" class="button is-success is-small">Novo Produto</a>
+            <a href="/" class="button is-small">Voltar</a>
+          </div>
+        </div>
+      </div>
+  
+      <hr />
+  
+      <% produtos.forEach(produto => { %>
+      <div class="columns">
+        <div class="column">
+          <div class="card card--product">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                    <p class="title is-6"><%= produto.descricao %></p>
+                    <p class="subtitle is-7">Valor: R$ <%= produto.preco %></p>
+                    <% produto.cors.forEach(cor => { %>
+                      <label class="radio subtitle is-7">
+                        <input type="radio" name="coresIds[<%= produto.id %>]" value="<%= cor.id %>" data-cor="<%= cor.cor %>"> <%= cor.cor %>
+                      </label>
+                    <% })%>
+                  </div>
+                <div class="media-right">
+                  <div class="buttons">
+                    <a href="#" class="button is-success is-small" onclick="adicionarAoCarrinho(event, '<%= produto.id %>')">Adicionar ao Carrinho</a>
+                    <a href="/produtos/<%= produto.id %>/update" class="button is-warning is-small">Atualizar</a>
+                    <a href="/produtos/<%= produto.id %>?_method=delete" class="button is-danger is-small">Remover</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+
+      <div class="columns">
+        <div class="column">
+          <div class="buttons is-pulled-right">
+            <button id="finalizarPedido" class="button is-success is-small" style="display: none;" onclick="finalizarPedido(event)">Finalizar Pedido</button>
+          </div>
+        </div>
+      </div>
+  
+  
+    </div>
+  </section>
+  
+
+
+       
+  
+  <%- include("../layouts/footer") %>

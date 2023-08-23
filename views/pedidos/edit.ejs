@@ -1,0 +1,44 @@
+<%- include("../layouts/header", {title: 'Atualização de Pedido' }) %>
+
+    <%- include("../layouts/menu") %>
+
+
+      <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-four-fifths">
+                        <h1 class="title is-4">Atualização do Pedido <%= pedido.id %>
+                        </h1>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="buttons is-pulled-right">
+                            <a href="/pedidos" class="button is-small">Voltar</a>
+                        </div>
+                    </div>
+                </div>
+                <form action="/pedidos/<%= pedido.pessoaId %>/<%= pedido.id %>?_method=put" method="POST">
+                    <div class="field">
+                        <label class="label">Status</label>
+                        <div class="control">
+                            <select class="input" name="status" required placeholder="Selecione o status">
+                                <option value="" disabled selected>Selecione o status</option>
+                                <option value="Pagamento Efetuado">Pagamento Efetuado</option>
+                                <option value="Em Separação">Em Separação</option>
+                                <option value="Enviado para a Transportadora">Enviado para a Transportadora</option>
+                                <option value="Em trânsito">Em trânsito</option>
+                                <option value="Em Rota de Entrega">Em Rota de Entrega</option>
+                                <option value="Entregue">Entregue</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button is-success">Atualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <%- include("../layouts/footer") %>

@@ -1,0 +1,48 @@
+<%- include("../layouts/header", {title: 'Atualização de Pedido' }) %>
+
+    <%- include("../layouts/menu") %>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-four-fifths">
+                  <h1 class="title is-4">Usuários Cadastrados</h1>
+                </div>
+                <div class="column is-one-fifth">
+                  <div class="buttons is-pulled-right">
+                    <a href="/" class="button is-small">Voltar</a>
+                  </div>
+                </div>
+              </div>
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Rua</th>
+                <th>Cidade</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                <% pessoas.forEach(pessoa => { %>
+              <tr>
+                <td><%= pessoa.id %></td>
+                <td><%= pessoa.nome %></td>
+                <td><%= pessoa.endereco.rua %></td>
+                <td><%= pessoa.endereco.cidade %></td>
+                <td>
+                    <a href="/pessoas/<%=pessoa.id%>" class="button is-info is-small is-pulled-right">Ver</a>
+                </td>
+                <td>
+                    <a href="/pessoas/<%=pessoa.id%>?_method=delete" class="button is-danger is-small is-pulled-right">Remover</a>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+  <%- include("../layouts/footer") %>
