@@ -1,5 +1,5 @@
+
 const Pessoa = require("../models/pessoa")
-const Endereco = require("../models/endereco")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const passport = require("passport")
@@ -30,7 +30,6 @@ controller.getUpdatePage = async (req, res) => {
     const {pessoaId} = req.params
     try{
         const pessoa = await Pessoa.findByPk(pessoaId,{
-            include: Endereco,
         })
         
         if (!pessoa){
@@ -91,7 +90,6 @@ controller.login = async (req,res) => {
 controller.getAll = async (req, res) => {
     try{
         const pessoas = await Pessoa.findAll({
-            include: Endereco
         })
         res.status(200).render("pessoas/index",{
             pessoas:pessoas
@@ -122,13 +120,12 @@ controller.getById = async (req, res) => {
 }
 
 controller.create = async (req, res) => {
-    const {nome,username,password,role,rua,cidade} = req.body
+    const {nome,username,password,role} = req.body
 
     try{
         const hashDaSenha = await bcrypt.hash(password, 10);
         const pessoa = await Pessoa.create({nome,username,password:hashDaSenha,role})
-        await Endereco.create({rua,cidade,pessoaId:pessoa.id})
-        res.status(200).redirect(`/pedidos/${pessoa.id}`) 
+        res.status(200).redirect("/") 
     }catch(error){ 
         res.status(422).render("pages/error",{error: "Erro ao cadastar usuário!"+error})
     }
@@ -136,7 +133,7 @@ controller.create = async (req, res) => {
 
 controller.update = async (req, res) => {
     const {pessoaId} = req.params
-    const {nome,rua,cidade} = req.body
+    const {nome} = req.body
 
     try{
         const pessoa = await Pessoa.findByPk(pessoaId)
@@ -147,22 +144,7 @@ controller.update = async (req, res) => {
 
         pessoa.nome = nome
         await pessoa.save()
-
-        const endereco = await Endereco.findOne({
-            where:{
-                pessoaId : pessoaId
-            }
-        })
-
-        if (!endereco){
-            return res.status(422).render("pages/error",{error: "Endereço não existe!"})
-        }
-
-        endereco.rua = rua
-        endereco.cidade = cidade
-        await endereco.save()
-
-        res.status(200).redirect(`/pessoas/${pessoa.id}`)
+        
     }catch (error){
         return res.status(422).render("pages/error",{error: "Erro ao atualizar o usuário!"})
     }
