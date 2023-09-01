@@ -2,25 +2,26 @@
 
  <%- include("../layouts/menu") %>
 
- <section class="section hero is-primary is-fullheight-with-navbar">
+ <section class="section hero is-link is-fullheight-with-navbar">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <h1 class="title is-size-1">
-          Bem-vindo(a)!
+        <h1 class="title is-1">
+          FLASHDESK
         </h1>
         <h2 class="subtitle is-size-4">
-          O que você deseja fazer?
+          Sistema gestor de chamados de TI
         </h2>
+        <% if(user){ %>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="box custom-box-bg">
               <h3 class="title is-size-3 ">Tickets</h3>
               <p class="subtitle is-size-5 ">Visualize e gerencie seus tickets.</p>
-              <a href="/>" class="button is-link is-medium">Abrir ticket</a> 
-              <a href="/tickets/<%= pessoaId %>" class="button is-link is-medium">Ver tickets</a>
+              <a href="/novoticket/novo %>" class="button is-link is-medium" >Abrir ticket</a> 
+              <a href="/ticket/<%= pessoaId %>" class="button is-link is-medium">Ver tickets</a>
             </div>
           </div>
-        </div>
+        </div><% } %>
       </div>
     </div>
   </section>
