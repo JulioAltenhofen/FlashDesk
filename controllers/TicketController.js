@@ -3,6 +3,16 @@ const ticket = require("../models/ticket")
 
 const controller = {}
 
+controller.getRegisterPage = async (req, res) => {
+    try {
+        res.status(200).render("ticket/form",{
+            ticket : new ticket()
+        })
+    } catch (error) {
+        res.status(500).render("pages/error",{error: "Erro ao carregar o formulário!"})
+    }
+}
+
 controller.getUpdatePage = async (req, res) => {
     const {pessoaId,ticketId} = req.params
     try {
@@ -40,12 +50,6 @@ controller.getAll = async (req, res) => {
             include: [
                 {
                     model: ticket,
-                    include: [
-                    {
-                        model: Produto,
-                        include: [{ model: Cor, through: "produtoCor" }],
-                    },
-                    ],
                 }
             ],
         })
@@ -59,7 +63,6 @@ controller.getAll = async (req, res) => {
             pessoa : pessoa
         })
     }catch(error){
-        //res.status(500).json(error)
         res.status(500).render("pages/error",{error : "Erro ao exibir os tickets"})
 
     }
@@ -73,16 +76,6 @@ controller.getById = async (req, res) => {
             include: [
                 {
                     model: ticket,
-                    include: [
-                    {
-                        model: Produto,
-                        through: {
-                            model: Produtoticket,
-                            attributes: ['cor'] // Incluir apenas o atributo 'cor' da tabela Produtoticket
-                          }
-                        //include: [{ model: Cor, through: "produtoCor" }],
-                    },
-                    ],
                 }
             ],
         })
@@ -96,58 +89,26 @@ controller.getById = async (req, res) => {
         if (!ticket) {
             return res.status(500).render("pages/error",{error : "ticket não existe!"})
         }
-        //console.log(ticket)
-        //res.status(200).json(ticket);
         res.status(200).render("tickets/show",{
             ticket : ticket,
             pessoa : pessoa
         })
     }catch(error){
-        //res.status(500).json(error)
         res.status(500).render("pages/error",{error : "Erro ao exibir o ticket"})
     }
     
 }
 
 controller.create = async (req, res) => {
-    const {pessoaId} = req.params
-    const {produtosticket} = req.body
-
-    const produtosIds = produtosticket.map((produto) => produto.produtoId);
+    const {titulo,campoTexto,anexo} = req.body
 
     try{
-        const pessoa = await Pessoa.findByPk(pessoaId)
-        
-        if (!pessoa){
-            res.status().send("Pessoa não existe!")
-        }
-        
-        const produtos = await Produto.findAll({ where: { id: produtosIds } });
-        
-        let valorticket = 0
-        for (produto of produtos){
-            valorticket += parseFloat(produto.preco)
-        }
-
-        const ticket = await ticket.create({valor:valorticket,status:"Aguardando Pagamento",pessoaId})
-        for (let pId of produtosIds) {
-            const produto = produtos.find((p) => p.id == pId)
-            const produtoCor = produtosticket.find((p) => p.produtoId == produto.id)
-            const produtoticket = await Produtoticket.create({
-                ticketId: ticket.id,
-                produtoId: produto.id,
-                cor: produtoCor.corSelecionada       
-            });
-            
-            await ticket.addProdutos(produto, { through: produtoticket });
-            
-            produtosticket.splice(produtosticket.indexOf(produtoCor),1)
-            
-          }
-     
-        res.status(200).json(ticket.id)
+        const titulo = await titulo;
+        const campoTexto = await campoTexto;
+        const anexo = await anexo;
+        res.status(200).redirect("/") 
     }catch(error){ 
-        res.status(500).render("pages/error",{error : "Erro ao cadastrar o ticket"})
+        res.status(422).render("pages/error",{error: "Erro ao criar ticket!"+error})
     }
 }
 

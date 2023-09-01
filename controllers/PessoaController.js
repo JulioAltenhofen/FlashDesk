@@ -56,10 +56,13 @@ controller.logar = async (req,res,next) => {
 }
 
 controller.logout = async (req,res,next) => {
-    req.logout()
-    //req.flash('success_msg',"Você saiu!")
-    res.redirect("/")
-}
+    req.logout(function (err) {
+        if (err) { 
+            return next(err)
+        }
+        // req.flash('success_msg',"Você saiu!")
+        res.redirect('/')
+    })}
 
 
 controller.login = async (req,res) => {
@@ -103,9 +106,7 @@ controller.getById = async (req, res) => {
     const {pessoaId} = req.params
 
     try{
-        const pessoa = await Pessoa.findByPk(pessoaId,{
-            include: Endereco,
-        })
+        const pessoa = await Pessoa.findByPk(pessoaId)
         
         if (!pessoa){
             return res.status(422).render("pages/error",{error: "Usuário não existe!"})
@@ -115,7 +116,7 @@ controller.getById = async (req, res) => {
             pessoa : pessoa
         })
     }catch(error){ 
-        res.status(422).render("pages/error",{error: "Erro ao buscar usuário!"})
+        res.status(422).render("pages/error",{error: "Erro ao buscar usuário!"+error})
     }
 }
 

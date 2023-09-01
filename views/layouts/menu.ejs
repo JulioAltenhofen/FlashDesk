@@ -3,24 +3,29 @@
     <a class="navbar-item" href="/">
       Início
     </a>
-    <a class="navbar-item" href="/ticket/1" onclick="adicionarTokenAoHeader(event)">
+    <% if (user) { %>
+    <a class="navbar-item" href="/ticket/ <%=user.id %>" onclick="adicionarTokenAoHeader(event)">
       Tickets
     </a>
     <a class="navbar-item" href="/pessoas">
       Pessoas
     </a>
+    <% } %>
   </div>
   <div class="navbar-brand" style="margin-left: auto;">
-    <% if (!user) {%>
-    <a class="navbar-item" href="/form-login">
-      Login
-    </a>
+    <% if (user) { %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Bem-vindo, <%= user.nome %></a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/pessoas/<%= user.id %>">Meu perfil</a>  
+          <a class="navbar-item" href="/pessoas/novo">Cadastrar Usuário</a>
+          <a class="navbar-item" href="/logout">Logout</a>
+        </div>
+      </div>
+    <% } else { %>
+      <a class="navbar-item" href="/form-login">Login</a>
     <% } %>
-    <a class="navbar-item" href="/pessoas/novo">
-      Cadastrar Usuário
-    </a>
-  <a class="navbar-item" href="/pessoas/1" >
-    Meu perfil
+
   </a>
 </div>
 </nav>

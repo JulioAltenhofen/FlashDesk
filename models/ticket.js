@@ -11,7 +11,7 @@ const Pedido = db.define('ticket', {
       type: DataTypes.STRING,
       allowNull: false
     },
-    body: {
+    corpo: {
         type: DataTypes.STRING,
         allowNull: false
     },
