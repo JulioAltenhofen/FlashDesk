@@ -6,9 +6,12 @@ require("./config/associations")
 var session = require("express-session")
 const passport = require("passport")
 require("./security/authentication")(passport)
+// const formidable = require("formidable");
 
 const server = express()
 const PORT = 3000
+
+// server.use(formidable)
 
 server.use(session({
     secret: "V3r7r9$7q0d&p1!2$@PwC$3s8LpV",  //Chave secreta utilizada para assinar as sessões, garantindo a integridade e segurança das mesmas   
@@ -41,7 +44,6 @@ server.use(express.static("public"))
 server.set("views", path.join(__dirname,"views"))
 //setando a engine utilizada para visualização: EJS
 server.set("view engine","ejs")
-
 
 server.listen(PORT,()=>{
     console.log("Servidor executando na porta "+PORT)

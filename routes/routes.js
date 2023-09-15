@@ -20,7 +20,7 @@ routes.get("/ticket/:pessoaId/:ticketId",ticketController.getById)
 routes.post("/ticket",ticketController.create)
 routes.put("/ticket/:pessoaId/:ticketId",ticketController.update)
 routes.delete("/ticket/:pessoaId/:ticketId",ticketController.delete)
-routes.get("/novoticket/novo",admin,ticketController.getRegisterPage)
+routes.get("/novoticket/novo",autenticado,ticketController.getRegisterPage)
 
 
 //rotas de pessoas

@@ -168,6 +168,22 @@ controller.delete = async (req, res) => {
 
     }
     
-}
+};
+
+// controller.get('/', (req,res) => {
+//     res.sendFile(__dirname + '/form.js')
+// }) 
+
+// controller.post('/api/upload', (req, res, next) => {
+//     const form = formidable({});
+  
+//     form.parse(req, (err, fields, files) => {
+//       if (err) {
+//         next(err);
+//         return;
+//       }
+//       res.json({ fields, files });
+//     });
+//   });
 
 module.exports = controller

@@ -145,10 +145,13 @@ controller.update = async (req, res) => {
 
         pessoa.nome = nome
         await pessoa.save()
+        res.status(200).redirect("/")
+        
         
     }catch (error){
         return res.status(422).render("pages/error",{error: "Erro ao atualizar o usuário!"})
     }
+    
 }
 
 controller.delete = async (req, res) => {
