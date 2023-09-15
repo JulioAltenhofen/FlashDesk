@@ -1,7 +1,7 @@
 const DataTypes = require("sequelize");
 const db = require("../config/dbconnection")
 
-const Pedido = db.define('ticket', {
+const Ticket = db.define('ticket', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -29,7 +29,7 @@ const Pedido = db.define('ticket', {
 
 (async () => {
     try {
-        await Pedido.sync({ force: false }); //{ force: true }
+        await Ticket.sync({ force: false }); //{ force: true }
         console.log('Tabela de Pedido criada com sucesso.');
 
     } catch (error) { 
@@ -37,4 +37,4 @@ const Pedido = db.define('ticket', {
     }
 })();
 
-module.exports = Pedido
+module.exports = Ticket

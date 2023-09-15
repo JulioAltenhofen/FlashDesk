@@ -6,7 +6,8 @@ const controller = {}
 controller.getRegisterPage = async (req, res) => {
     try {
         res.status(200).render("ticket/form",{
-            ticket : new ticket()
+            ticket : new ticket(),
+            method : "POST"
         })
     } catch (error) {
         res.status(500).render("pages/error",{error: "Erro ao carregar o formulário!"})
@@ -58,8 +59,8 @@ controller.getAll = async (req, res) => {
             return res.status(500).render("pages/error",{error : "Pessoa não existe!"})
         }
 
-        res.status(200).render("tickets/index",{
-            tickets : pessoa.tickets,
+        res.status(200).render("ticket/show",{
+            ticket : pessoa.ticket,
             pessoa : pessoa
         })
     }catch(error){

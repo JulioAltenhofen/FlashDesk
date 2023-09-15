@@ -2,36 +2,34 @@
 
 <%- include("../layouts/menu") %>
 
-<div class="container">
-    <div class="columns">
-      <div class="column is-four-fifths">
-        <h1 class="title is-4">Login</h1>
-      </div>
-      <div class="column is-one-fifth">
-        <div class="buttons is-pulled-right">
-          <a href="/" class="button is-small">Voltar</a>
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-one-third">
+                <h1 class="title">Login</h1>
+                <form action="/logar" method="POST">
+                    <div class="field">
+                        <label class="label">Username</label>
+                        <div class="control">
+                            <input class="input" type="text" name="username" placeholder="Seu nome de usuário" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Senha</label>
+                        <div class="control">
+                            <input class="input" type="password" name="password" placeholder="Sua senha" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-primary is-pulled-right" type="submit">Entrar</button>
+                            <a href="/" class="button is-danger">Voltar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-    <form action="/logar" method="POST">
-      <div class="field">
-        <label class="label">Nome de Usuário</label>
-        <div class="control">
-          <input class="input" type="text" name="username" placeholder="Digite seu nome de usuário" required>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Senha</label>
-        <div class="control">
-          <input class="input" type="password" name="password" placeholder="Digite sua senha" required>
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <button type="submit" class="button is-success">Entrar</button>
-        </div>
-      </div>
-    </form>
-  </div>
+</section>
   
   <%- include("../layouts/footer") %>
