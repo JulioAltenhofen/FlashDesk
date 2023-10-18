@@ -1,16 +1,17 @@
  <%- include("../layouts/header", {title: 'Início'}) %>
 
  <%- include("../layouts/menu") %>
-
  <section class="section hero is-link is-fullheight-with-navbar">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <h1 class="title is-1">
-          FLASHDESK
-        </h1>
-        <h2 class="subtitle is-size-4">
-          Sistema gestor de chamados de TI
-        </h2>
+        <column class="column is-one-third">
+          <h1 class="to-lime-500">
+            FLASHDESK
+          </h1>
+          <h2 class="subtitle is-size-4">
+            Sistema gestor de chamados de TI
+          </h2>
+        </column>
         <% if(user){ %>
         <div class="columns is-centered">
           <div class="column is-half">

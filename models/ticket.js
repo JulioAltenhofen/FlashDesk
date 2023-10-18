@@ -11,11 +11,11 @@ const Ticket = db.define('ticket', {
       type: DataTypes.STRING,
       allowNull: false
     },
-    corpo: {
+    campoTexto: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    status: {
+    urgencia: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -25,16 +25,22 @@ const Ticket = db.define('ticket', {
       references: { model: "pessoa", key: "id" },
       onDelete: "CASCADE",
     },
+    anexo: {
+      type: DataTypes.INTEGER,
+      allowNull:true,
+      references: {model: "ticket", key:"id"},
+      onDelete:"CASCADE"
+    }
   });
 
-(async () => {
-    try {
-        await Ticket.sync({ force: false }); //{ force: true }
-        console.log('Tabela de Pedido criada com sucesso.');
+// (async () => {
+//     try {
+//         await Ticket.sync({ force: false }); //{ force: true }
+//         console.log('Tabela de Pedido criada com sucesso.');
 
-    } catch (error) { 
-        console.error('Não foi possível conectar-se ao banco de dados:', error);
-    }
-})();
+//     } catch (error) { 
+//         console.error('Não foi possível conectar-se ao banco de dados:', error);
+//     }
+// })();
 
 module.exports = Ticket

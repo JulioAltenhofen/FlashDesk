@@ -6,12 +6,9 @@ require("./config/associations")
 var session = require("express-session")
 const passport = require("passport")
 require("./security/authentication")(passport)
-// const formidable = require("formidable");
 
 const server = express()
 const PORT = 3000
-
-// server.use(formidable)
 
 server.use(session({
     secret: "V3r7r9$7q0d&p1!2$@PwC$3s8LpV",  //Chave secreta utilizada para assinar as sessões, garantindo a integridade e segurança das mesmas   
@@ -26,6 +23,8 @@ server.use((req,res, next) => {
     res.locals.user = req.user || null
     next()
 })
+
+// const upload = multer({ storage: storage });
 
 //criando um middleware para que substitua requisições POST ou GET por outras quando a URL possui "_method"
 server.use(methodOverride("_method",{methods:["POST","GET"]}));

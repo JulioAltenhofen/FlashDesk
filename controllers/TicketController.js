@@ -1,4 +1,5 @@
 const Pessoa = require("../models/pessoa")
+const Ticket = require("../models/ticket")
 const ticket = require("../models/ticket")
 
 const controller = {}
@@ -101,12 +102,10 @@ controller.getById = async (req, res) => {
 }
 
 controller.create = async (req, res) => {
-    const {titulo,campoTexto,anexo} = req.body
+    const {titulo,campoTexto,urgencia,anexo} = req.body
 
     try{
-        const titulo = await titulo;
-        const campoTexto = await campoTexto;
-        const anexo = await anexo;
+        const ticket = await Ticket.create({titulo,campoTexto,urgencia,anexo})
         res.status(200).redirect("/") 
     }catch(error){ 
         res.status(422).render("pages/error",{error: "Erro ao criar ticket!"+error})
@@ -170,21 +169,5 @@ controller.delete = async (req, res) => {
     }
     
 };
-
-// controller.get('/', (req,res) => {
-//     res.sendFile(__dirname + '/form.js')
-// }) 
-
-// controller.post('/api/upload', (req, res, next) => {
-//     const form = formidable({});
-  
-//     form.parse(req, (err, fields, files) => {
-//       if (err) {
-//         next(err);
-//         return;
-//       }
-//       res.json({ fields, files });
-//     });
-//   });
 
 module.exports = controller

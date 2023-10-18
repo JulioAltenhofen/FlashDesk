@@ -4,12 +4,23 @@
 
  <div class="container">
   <h1 class="title">Formulário</h1>
-  <form action="/upload" method="POST" enctype="multipart/form-data">
+  <form action="/ticket" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label class="label">Título</label>
       <div class="control">
         <input class="input" type="text" name="title" placeholder="Digite o título">
       </div>
+    </div>
+    <div class="field">
+      <label class="label">Nivel de urgência</label>
+      <select class="input" name="urgencia" style="height: auto" required placeholder="Selecione o nível de urgência">
+        <option value="" disabled selected>Selecione o nível de urgência</option>
+        <option value="superficial">Superficial</option>
+        <option value="leve">Leve</option>
+        <option value="moderado">Moderado</option>
+        <option value="severo">Severo</option>
+        <option value="critico">Crítico</option>
+    </select>
     </div>
     <div class="field">
       <label class="label">Texto</label>
@@ -19,7 +30,7 @@
     </div>
     <div class="file has-name">
       <label class="file-label">
-        <input class="file-input" type="file" name="resume">
+        <input class="file-input" type="file" name="Adicionar">
         <span class="file-cta">
           <span class="file-icon">
             <i class="fas fa-upload"></i>
@@ -29,7 +40,6 @@
           </span>
         </span>
         <span class="file-name">
-          
         </span>
       </label>
     </div>

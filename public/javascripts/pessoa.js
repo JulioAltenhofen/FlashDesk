@@ -22,7 +22,6 @@ const handleSubmit = async (evt) => {
     console.log(username, password)
     try {
         const pessoaId = await PessoasService.login(username, password);
-        window.location.href = `/pedidos/${pessoaId}`
     } catch (error) {
         console.log(error)
     }
