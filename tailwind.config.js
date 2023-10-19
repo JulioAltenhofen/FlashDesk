@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./views/**/*.ejs"],
   theme: {
-    extend: {},
+    extend: { backgroundImage: {
+      'background': "url('public/img/background.png')",
+      
   },
   plugins: [],
+}
+}
 }

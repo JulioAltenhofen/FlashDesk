@@ -1,33 +1,33 @@
-<nav class="navbar is-black">
+<nav class="navbar bg-blue-950 ">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/">
+    <a class="navbar-item text-white" href="/">
       Início
     </a>
     <% if (user) { %>
-    <a class="navbar-item" href="/ticket/<%=user.id %>" onclick="adicionarTokenAoHeader(event)">
+    <a class="navbar-item text-white" href="/ticket/<%=user.id %>" onclick="adicionarTokenAoHeader(event)">
       Tickets
     </a>
     <% if (user && user.role === 'admin') { %>
-    <a class="navbar-item" href="/pessoas">
+    <a class="navbar-item text-white" href="/pessoas">
       Pessoas
     </a>
     <% } %>
     <% } %>
   </div>
-  <div class="navbar-brand" style="margin-left: auto;">
+  <div class="navbar-brand text-white" style="margin-left: auto;">
     <% if (user) { %>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">Bem-vindo, <%= user.nome %></a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="/pessoas/<%= user.id %>">Meu perfil</a>  
+      <div class="navbar-item has-dropdown is-hoverable text-white">
+        <a class="navbar-link text-white">Bem-vindo, <%= user.nome %></a>
+        <div class="navbar-dropdown text-black">
+          <a class="navbar-item text-black" href="/pessoas/<%= user.id %>">Meu perfil</a>  
           <% if (user && user.role === 'admin') { %>
-          <a class="navbar-item" href="/pessoas/novo">Cadastrar Usuário</a>
+          <a class="navbar-item text-black" href="/pessoas/novo">Cadastrar Usuário</a>
           <% } %>
-          <a class="navbar-item" href="/logout">Logout</a>
+          <a class="navbar-item text-black" href="/logout">Logout</a>
         </div>
       </div>
     <% } else { %>
-      <a class="navbar-item" href="/form-login">Login</a>
+      <a class="navbar-item text-white" href="/form-login">Login</a>
     <% } %>
 
   </a>
