@@ -4,7 +4,7 @@
 
  <div class="container">
   <h1 class="title">Formulário</h1>
-  <form action="/ticket" method="POST" enctype="multipart/form-data">
+  <form action="/novoticket/:pessoaId" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label class="label">Título</label>
       <div class="control">
@@ -25,31 +25,24 @@
     <div class="field">
       <label class="label">Texto</label>
       <div class="control">
-        <textarea class="textarea" name="text" placeholder="Digite o texto"></textarea>
+        <textarea class="input" type="text" name="campoTexto" placeholder="Digite o texto"></textarea>
       </div>
     </div>
-    <div class="file has-name">
-      <label class="file-label">
-        <input class="file-input" type="file" name="Adicionar">
-        <span class="file-cta">
-          <span class="file-icon">
-            <i class="fas fa-upload"></i>
-          </span>
-          <span class="file-label">
-            Anexar arquivos
-          </span>
-        </span>
-        <span class="file-name">
-        </span>
+      <label class="p-3">
+        <input type="file" name="anexo" class="block w-full text-sm text-slate-500
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-xl file:border-0
+          file:text-sm file:font-semibold
+          file:bg-blue-50 file:text-blue-700
+          hover:file:bg-blue-100
+        "/>
       </label>
-    </div>
     <div class="field">
       <div class="control">
-        <button class="button is-primary" type="submit">Enviar</button>
+        <button class="button is-primary" type="sbmuit">Enviar</button>
       </div>
     </div>
   </form>
 </div>
-  </section>
   
   <%- include("../layouts/footer") %>

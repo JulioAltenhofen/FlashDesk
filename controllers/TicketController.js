@@ -1,14 +1,13 @@
 const Pessoa = require("../models/pessoa")
 const Ticket = require("../models/ticket")
-const ticket = require("../models/ticket")
+
 
 const controller = {}
 
 controller.getRegisterPage = async (req, res) => {
     try {
         res.status(200).render("ticket/form",{
-            ticket : new ticket(),
-            method : "POST"
+            // ticket : new Ticket()
         })
     } catch (error) {
         res.status(500).render("pages/error",{error: "Erro ao carregar o formulário!"})
@@ -102,10 +101,16 @@ controller.getById = async (req, res) => {
 }
 
 controller.create = async (req, res) => {
-    const {titulo,campoTexto,urgencia,anexo} = req.body
+    const {pessoaId} = req.params
+    const {title,campoTexto,urgencia,anexo} = req.body
 
     try{
-        const ticket = await Ticket.create({titulo,campoTexto,urgencia,anexo})
+        const ticket = await Ticket.create({
+            titulo:title,
+            campoTexto:campoTexto,
+            urgencia:urgencia,
+            anexo:anexo,
+            pessoaId:pessoaId})
         res.status(200).redirect("/") 
     }catch(error){ 
         res.status(422).render("pages/error",{error: "Erro ao criar ticket!"+error})

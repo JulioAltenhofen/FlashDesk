@@ -6,6 +6,8 @@ require("./config/associations")
 var session = require("express-session")
 const passport = require("passport")
 require("./security/authentication")(passport)
+const flash = require('express-flash');
+
 
 const server = express()
 const PORT = 3000
@@ -37,6 +39,14 @@ server.use(routes)
 server.use(express.static(path.join(__dirname,"public")))
 
 server.use(express.static("public"))
+
+server.use(session({
+    secret: '"V3r7r9$7q0d&p1!2$@PwC$3s8LpV"',
+    resave: false,
+    saveUninitialized: true
+  }));
+
+  server.use(flash());
 
 
 //avisando o express do local das views

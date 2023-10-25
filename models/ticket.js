@@ -22,20 +22,17 @@ const Ticket = db.define('ticket', {
     pessoaId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: "pessoa", key: "id" },
-      onDelete: "CASCADE",
+      references: { model: "pessoa", key: "id" }
     },
     anexo: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull:true,
-      references: {model: "ticket", key:"id"},
-      onDelete:"CASCADE"
     }
   });
 
 // (async () => {
 //     try {
-//         await Ticket.sync({ force: false }); //{ force: true }
+//         await Ticket.sync({ force: false }); //{ force: false }
 //         console.log('Tabela de Pedido criada com sucesso.');
 
 //     } catch (error) { 

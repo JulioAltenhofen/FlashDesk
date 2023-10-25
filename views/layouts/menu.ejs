@@ -17,7 +17,7 @@
   <div class="navbar-brand text-white" style="margin-left: auto;">
     <% if (user) { %>
       <div class="navbar-item has-dropdown is-hoverable text-white">
-        <a class="navbar-link text-white">Bem-vindo, <%= user.nome %></a>
+        <a class="navbar-link text-white hover:text-black">Bem-vindo, <%= user.nome %></a>
         <div class="navbar-dropdown text-black">
           <a class="navbar-item text-black" href="/pessoas/<%= user.id %>">Meu perfil</a>  
           <% if (user && user.role === 'admin') { %>
