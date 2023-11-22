@@ -26,14 +26,4 @@ const Pessoa = db.define('pessoa', {
     }
 });
 
-// (async () => {
-//     try {
-//         await Pessoa.sync({ force: true });
-//         console.log('Tabela de Pessoa criada com sucesso.');
-
-//     } catch (error) { 
-//         console.error('Não foi possível conectar-se ao banco de dados:', error);
-//     }
-// })();
-
 module.exports = Pessoa;

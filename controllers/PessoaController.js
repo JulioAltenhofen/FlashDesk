@@ -134,7 +134,7 @@ controller.create = async (req, res) => {
 
 controller.update = async (req, res) => {
     const {pessoaId} = req.params
-    const {nome} = req.body
+    const {nome,role} = req.body
 
     try{
         const pessoa = await Pessoa.findByPk(pessoaId)
@@ -144,7 +144,9 @@ controller.update = async (req, res) => {
         }
 
         pessoa.nome = nome
+        pessoa.role = role
         await pessoa.save()
+
         res.status(200).redirect("/")
         
         

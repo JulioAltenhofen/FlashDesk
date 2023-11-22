@@ -1,75 +1,69 @@
-<%- include("../layouts/header", {title: 'Lista de Tickets'}) %>
+<%- include("../layouts/header", {title: 'FlashDesk'}) %>
 
 <%- include("../layouts/menu") %>
 
 <section class="section">
     <div class="container">
       <div class="columns">
-        <div class="column is-four-fifths">
-          <h1 class="title size-4">Listas de Tickets de <%= user.nome %></h1>
+        <div class="column">
+          <a href="/ticket-form/<%= pessoa.id %>" class= "button is-info is-small is-pulled-right" >Abrir ticket</a> 
+          <% if (user && user.role === 'admin') { %>
+          <h1 class="title size-4">Lista de Tickets de <%= pessoa.nome %></h1>
+            <% } else if (user && user.role === 'user') { %>
+          <h1 class="title size-4">Lista de Tickets</h1>
+          <% } %>
         </div>
       </div>
 
-      <div class="columns is-multiline">
-        <% ticket.forEach(ticket =>{ %>
-        <div class="column is-one-quarter">
-          <div class="card has-background-white-ter">
-            <div class="card-content">
-              <p class="subtitle is-size-5">
-                Ticket Nº <%= ticket.id %>
-              </p>
-              <p class="subtitle is-size-5">
-                Status: <%= ticket.status %>
-              </p>          
-            </div>
-            <div class="container">
-              <h1 class="title">Formulário</h1>
-              <form action="/upload" method="POST" enctype="multipart/form-data">
-                <div class="field">
-                  <label class="label">Título</label>
-                  <div class="control">
-                    <input class="input" type="text" name="title" placeholder="Digite o título">
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="label">Texto</label>
-                  <div class="control">
-                    <textarea class="textarea" name="text" placeholder="Digite o texto"></textarea>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="label">Anexar Arquivos</label>
-                  <div class="control">
-                    <input class="input" type="file" name="upload" multiple>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <button class="button is-primary" type="submit">Enviar</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <footer class="card-footer">
-              <p class="card-footer-item">
-                <span>
-                  <a href="/tickets/<%= ticket.pessoaId %>/<%= ticket.id %>">Ver</a>
-                </span>
-              </p>
-              <p class="card-footer-item">
-                <span>
-                  <a href="/tickets/<%= ticket.pessoaId %>/<%= ticket.id %>/update">Editar</a>
-                </span>
-              </p>
-              <p class="card-footer-item">
-                <span>
-                  <a href="/tickets/<%= ticket.pessoaId %>/<%= ticket.id %>?_method=delete" class="has-text-danger">Remover</a>
-                </span>
-              </p>
-            </footer>
-          </div>
+      <% ticket.forEach(ticket =>{ %>
+      <div class="flex flex-wrap">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p>Ticket Nº <%= ticket.id %>
         </div>
-        <% }) %>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p><%= ticket.titulo %>  
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <% if (ticket.statusResposta != null) { %>
+            <p><%= ticket.status %>  
+          <% } else{ %> 
+            <p><%= ticket.statusResposta %>  
+          <% } %>    
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p><%=  moment(ticket.data).format('YYYY-MM-DD HH:mm:ss') %>  
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p class=" pl-16">
+            <span>
+              <a href="/ticket/<%= ticket.pessoaId %>/<%= ticket.id %>">Ver</a>
+            </span>
+          </p>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p class="pl-14">
+            <span>
+              <a href="/tickets/<%= ticket.pessoaId %>/<%= ticket.id %>?_method=delete" class="has-text-danger">Remover</a>
+            </span>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+
+      
+    
+        
+       
+              
+              
+              
+              
+            
+          
+              
+              
+
+        
       </div>
     </div>
   </section>

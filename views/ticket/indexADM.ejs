@@ -1,0 +1,69 @@
+<%- include("../layouts/header", {title: 'FlashDesk'}) %>
+
+<%- include("../layouts/menu") %>
+
+<section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          
+          <% if (user.role === 'admin') { %>
+            <h1 class="title size-4">Lista de Tickets</h1>
+          <% } %>
+        </div>
+      </div>
+
+      <% ticket.forEach(ticket =>{ %>
+      <div class="flex flex-wrap">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p>Ticket Nº <%= ticket.id %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p><%= ticket.titulo %>  
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <% if (ticket.statusResposta != null) { %>
+            <p><%= ticket.status %>  
+          <% } else{ %> 
+            <p><%= ticket.statusResposta %>  
+          <% } %>    
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p><%=  moment(ticket.data).format('YYYY-MM-DD HH:mm:ss') %>  
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p>
+            <span>
+              <a href="/ticket/<%= ticket.pessoaId %>/<%= ticket.id %>">Ver</a>
+            </span>
+          </p>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+          <p>
+            <span>
+              <a href="/tickets/<%= ticket.pessoaId %>/<%= ticket.id %>?_method=delete" class="has-text-danger">Remover</a>
+            </span>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+
+      
+    
+        
+       
+              
+              
+              
+              
+            
+          
+              
+              
+
+        
+      </div>
+    </div>
+  </section>
+
+  <%- include("../layouts/footer") %>

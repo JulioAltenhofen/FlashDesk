@@ -27,17 +27,15 @@ const Ticket = db.define('ticket', {
     anexo: {
       type: DataTypes.STRING,
       allowNull:true,
+    },
+    data: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   });
 
-// (async () => {
-//     try {
-//         await Ticket.sync({ force: false }); //{ force: false }
-//         console.log('Tabela de Pedido criada com sucesso.');
-
-//     } catch (error) { 
-//         console.error('Não foi possível conectar-se ao banco de dados:', error);
-//     }
-// })();
-
-module.exports = Ticket
+module.exports = Ticket;

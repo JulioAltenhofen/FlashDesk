@@ -1,4 +1,4 @@
-<%- include("../layouts/header", {title: 'Atualização de Pessoas' }) %>
+<%- include("../layouts/header", {title: 'FlashDesk' }) %>
 
     <%- include("../layouts/menu") %>
 
@@ -21,6 +21,11 @@
                 <div class="control">
                   <input class="input" type="text" value="<%= pessoa.nome %>" disabled>
                 </div>
+                <div class="field">
+                  <label class="label">Cargo:</label>
+                  <div class="control">
+                    <input class="input" type="text" value="<%= pessoa.role %>" disabled>
+                  </div>
               </div>
               <div class="field is-grouped is-grouped-centered">
                 <div class="control">

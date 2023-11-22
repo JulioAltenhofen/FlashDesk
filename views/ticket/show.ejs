@@ -1,52 +1,132 @@
-<%- include("../layouts/header", {title: 'tickets'}) %>
+<%- include("../layouts/header", { title: 'FlashDesk' }) %>
 
 <%- include("../layouts/menu") %>
 
 <section class="section">
     <div class="container">
-      <div class="columns">
-        <div class="column column--large">
-          <h1 class="title is-4">
-            <span class="icon">
-              <i class="fas fa-shopping-cart"></i>
-            </span>
-            Ticket <%= ticket.id %> de <%= pessoa.nome %>
-          </h1>
-        </div>
-        <div class="column column--small">
-          <div class="is-flex is-justify-flex-end">
-            <a href="/tickets/<%= ticket.pessoaId%>" class="button is-small">
-              Voltar
-            </a>
-          </div>
-        </div>
-      </div>
-  
-      <hr />
-  
-      <% ticket.forEach(ticket => { %>
-      <div class="columns">
-        <div class="column">
-          <div class="card card--product">
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-6"><%= ticket.titulo %></p>
-                  <p class="subtitle is-7">Status <%= ticket.status %></p>
-                </div>
-              </div>
+        <div class="columns">
+            <div class="column column--large">
+                <h1 class="title is-4">
+                    <span class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                    Ticket <%= ticket.id %> de <%= pessoa.nome %>
+                </h1>
             </div>
-          </div>
+            <div class="columns-2 pr-6">
+                <div>
+                    <a href="/ticket/<%= ticket.pessoaId %>" class="button is-small">
+                        Voltar
+                    </a>
+                </div>
+                <div>
+                    <a href="/ticket/<%= ticket.pessoaId %>/<%= ticket.id %>/update" class="button is-info is-small">
+                        Responder
+                    </a>
+                </div>
+            </div>
+        </div>       
+            <div class="column">
+                <div class="card card--product bg-slate-100 row border border-black border-b-black rounded-xl shadow-xl">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-6"><%= ticket.titulo %></p>
+                                <p class="title is-6"><%= moment(ticket.data).format('YYYY-MM-DD HH:mm:ss') %></p>
+                                <p class="title is-6"> Grau de urgência: <%= ticket.urgencia %></p>
+                                <p class="title is-6"> Status: <%= ticket.status%></p>                                         
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="column">
+            <div class="row border border-black rounded-xl shadow-xl">
+                <div class="col-md-6">
+                    <div class="card card--product bg-slate-300 rounded-xl border border-b-slate-600">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-6"><%= pessoa.nome %> disse: </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card--product bg-slate-200 rounded-xl border border-b-slate-600">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-6"><%= ticket.campoTexto %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card--product bg-slate-200 rounded-xl">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-6"><%= ticket.anexo %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <% }) %> 
+
+        <% ticket.respostas.forEach(resposta => { %>
+
+            <div class="column">
+                <div class="row border border-black rounded-xl shadow-xl">
+                    <div class="col-md-6">
+                        <div class="card card--product bg-slate-300 rounded-xl border border-b-slate-600">
+                            <div class="columns-2 card-content">
+                                <div class="font-bold">
+                                    <p><%= resposta.pessoa.nome %> disse: </p> 
+                                </div>
+                                <div class="text-right font-bold">
+                                    <div>
+                                    <p><%= moment(resposta.dataResposta).format('YYYY-MM-DD HH:mm:ss') %></p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card--product bg-slate-200 rounded-xl border border-b-slate-600">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-6"><%=resposta.respostas %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card--product bg-slate-200 rounded-xl">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-6"><%= resposta.anexoResposta %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+
+        
+        
     </div>
-  </section>
-  
-  
-  
-  
-  
+</section>
 
-
-  <%- include("../layouts/footer") %>
+<%- include("../layouts/footer") %>

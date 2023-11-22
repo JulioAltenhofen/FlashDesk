@@ -1,0 +1,16 @@
+/* font.css */
+
+/* Importe a fonte Montserrat (localmente ou via CDN) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+/* Aplique a fonte Montserrat a elementos específicos */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Defina classes personalizadas para usar a fonte Montserrat, se necessário */
+.font-Montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Outras regras de estilo do seu projeto aqui */

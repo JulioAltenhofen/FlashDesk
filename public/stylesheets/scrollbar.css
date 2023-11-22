@@ -1,0 +1,17 @@
+/* Estilos para a barra de rolagem no Google Chrome */
+::-webkit-scrollbar {
+    width: 10px; /* Largura da barra de rolagem */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f100; /* Cor do fundo da barra de rolagem */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888; /* Cor da alça da barra de rolagem */
+    border-radius: 5px; /* Raio da borda da alça */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Cor da alça da barra de rolagem quando o mouse passa por cima */
+  }
