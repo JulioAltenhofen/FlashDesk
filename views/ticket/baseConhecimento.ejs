@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Busca de Perguntas e Respostas</title>
+</head>
+<body>
+  <h1>Busca de Perguntas e Respostas</h1>
+
+  <form action="/buscar" method="GET">
+    <input type="text" name="termo" placeholder="Digite sua busca">
+    <button type="submit">Buscar</button>
+  </form>
+
+  <h2>Resultados da Busca:</h2>
+  <% if (resultados.length > 0) { %>
+    <ul>
+      <% resultados.forEach(item => { %>
+        <li>
+          <h3><%= item.pergunta %></h3>
+          <p><%= item.resposta %></p>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>Nenhum resultado encontrado.</p>
+  <% } %>
+
+</body>
+</html>

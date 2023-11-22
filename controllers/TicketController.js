@@ -283,5 +283,24 @@ controller.getAllAdmin = async (req, res) => {
     }
 }
 
+controller.getBaseConhecimento = async (req, res) => {
+    
+    try{
+        await Ticket.findByPk(ticketId,{
+            include: [
+                {
+                    model: Ticket
+                },
+            ],
+    });
+        const termoBusca = req.body(titulo);
+        const resultados = dados.filter(item =>
+            item.titulo.toLowerCase().includes(termoBusca.toLowerCase())
+        );
+        res.status(200).render('baseConhecimento', {resultados});
+      }catch(error){
+        res.status(500).render("pages/error",{error : "Erro ao exibir os tickets"+error})
+      };
+    }
 
 module.exports = controller
