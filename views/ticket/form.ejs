@@ -13,13 +13,15 @@
     </div>
 
     <script>
-      document.addEventListener('DOMContentLoaded', (event) => {
+      function termoBuscaListener() {
         const titleInput = document.getElementById('titleInput');
-        
+
         titleInput.addEventListener('input', (event) => {
           console.log(event.target.value);
         });
-      });
+      }
+
+      document.addEventListener('DOMContentLoaded', termoBuscaListener);
     </script>
     
 

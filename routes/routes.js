@@ -29,17 +29,18 @@ routes.get("/ticket-form/:pessoaId",autenticado,ticketController.getRegisterPage
 
 //rotas de respostas
 routes.post("/ticket/:pessoaId/:ticketId",acessarProprioRecurso,RespostasController.createResposta)
+routes.post("/ticket/:pessoaId/:ticketId/reabrir",acessarProprioRecurso,RespostasController.reabrirTicket)
 
 //rotas de pessoas
 routes.get("/form-login",PessoaController.getLoginPage)
 routes.post("/login",PessoaController.login)
 routes.post("/logar",PessoaController.logar)
-routes.get("/pessoas/novo",admin,PessoaController.getRegisterPage)
+routes.get("/pessoas/novo",PessoaController.getRegisterPage)
 routes.get("/pessoas/:pessoaId/update",admin,PessoaController.getUpdatePage)
 routes.get("/logout",PessoaController.logout)
 routes.get("/pessoas",admin,PessoaController.getAll)
 routes.get("/pessoas/:pessoaId",acessarProprioRecurso,PessoaController.getById)
-routes.post("/pessoas",admin,PessoaController.create)
+routes.post("/pessoas",PessoaController.create)
 routes.put("/pessoas/:pessoaId",admin,PessoaController.update)
 routes.delete("/pessoas/:pessoaId",admin,PessoaController.delete)
 

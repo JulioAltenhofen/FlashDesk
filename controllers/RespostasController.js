@@ -58,20 +58,31 @@ controller.createResposta = async (req, res) => {
         const dataFormatadaResposta = moment(dataResposta).format('YYYY-MM-DD HH:mm:ss')
         
         try{
-           Respostas.create({
-                respostas:resposta,
-                ticketId:ticketId,
-                pessoaId:req.user.id,
-                anexoResposta:nomeanexoResposta,
-                dataResposta: dataFormatadaResposta,
-                statusResposta:statusResposta
-                })
+            Respostas.create({
+              respostas:resposta,
+              ticketId:ticketId,
+              pessoaId:req.user.id,
+              anexoResposta:nomeanexoResposta,
+              dataResposta: dataFormatadaResposta,
+              statusResposta:statusResposta
+              })
+            Ticket.update({status:statusResposta},{where:{id:ticketId}})  
             res.status(200).redirect("/") 
         }catch(error){ 
             res.status(422).render("pages/error",{error: "Erro ao criar ticket!"})
         }
     });
 }
+
+controller.reabrirTicket = async (req, res) => {
+    const {pessoaId,ticketId} = req.params
+    try{
+        Ticket.update({status:"Reaberto"},{where:{id:ticketId}})  
+        res.status(200).redirect(`/ticket/${pessoaId}`) 
+    }catch(error){ 
+        res.status(422).render("pages/error",{error: "Erro ao reabrir ticket!"+error})
+    }
+};
 
 controller.delete = async (req, res) => {
     const {pessoaId,ticketId} = req.params

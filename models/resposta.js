@@ -1,7 +1,7 @@
 const DataTypes = require("sequelize");
 const db = require("../config/dbconnection")
 
-const Resposta = db.define('respostas', {
+const Resposta = db.define('resposta', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -28,10 +28,6 @@ const Resposta = db.define('respostas', {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: { model: "pessoa", key: "id" }
-    },
-    statusResposta: {
-      type: DataTypes.STRING,
-      allowNull: true
     }
      });
 

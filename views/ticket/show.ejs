@@ -20,9 +20,19 @@
                     </a>
                 </div>
                 <div>
-                    <a href="/ticket/<%= ticket.pessoaId %>/<%= ticket.id %>/update" class="button is-info is-small">
-                        Responder
-                    </a>
+                    <% if (ticket.status == 'Finalizado') { %>
+                        <form action="/ticket/<%= ticket.pessoaId %>/<%= ticket.id %>/reabrir" method="POST">
+                            <div class="field">
+                                <div class="control">
+                                    <button type="submit" class="button is-info is-small">Reabrir</button>
+                                </div>
+                            </div>
+                        </form>
+                    <% } else { %>
+                        <a href="/ticket/<%= ticket.pessoaId %>/<%= ticket.id %>/update"  class="button is-info is-small">
+                            Responder
+                        </a>    
+                    <% } %>
                 </div>
             </div>
         </div>       
@@ -80,7 +90,7 @@
             </div>
         </div>
 
-        <% ticket.respostas.forEach(resposta => { %>
+        <% ticket.resposta.forEach(resposta => { %>
 
             <div class="column">
                 <div class="row border border-black rounded-xl shadow-xl">

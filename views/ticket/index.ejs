@@ -24,11 +24,11 @@
           <p><%= ticket.titulo %>  
         </div>
         <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
-          <% if (ticket.statusResposta != null) { %>
-            <p><%= ticket.status %>  
-          <% } else{ %> 
-            <p><%= ticket.statusResposta %>  
-          <% } %>    
+          <% if (ticket.resposta != null) { %>
+            <p><%= ticket.resposta.statusResposta %></p>
+          <% } else { %>
+            <p><%= ticket.status %></p>
+          <% } %>
         </div>
         <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
           <p><%=  moment(ticket.data).format('YYYY-MM-DD HH:mm:ss') %>  

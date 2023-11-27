@@ -2,6 +2,7 @@ const Pessoa = require("../models/pessoa")
 const Ticket = require("../models/ticket")
 const Respostas = require("../models/resposta")
 const db = require("../config/dbconnection")
+const flash = require("express-flash")
 
 Pessoa.hasMany(Ticket,{onDelete:"CASCADE"})
 Ticket.belongsTo(Pessoa,{foreingKey:"pessoaId"})

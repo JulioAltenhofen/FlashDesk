@@ -80,6 +80,24 @@ controller.getAll = async (req, res) => {
     }
 }
 
+controller.getAllAdmin = async (req, res) => {
+    try{
+        const ticket = await Ticket.findAll()
+
+        const pessoa = await Pessoa.findByPk(ticket.pessoa)
+
+        res.status(200).render("ticket/indexADM",{
+            ticket : ticket.tickets,
+            pessoa : pessoa,
+            moment : moment
+            
+        })
+    }catch(error){
+        res.status(500).render("pages/error",{error : "Erro ao exibir os tickets"+error})
+
+    }
+}
+
 controller.getById = async (req, res) => {
     const {pessoaId,ticketId} = req.params
 
@@ -270,37 +288,25 @@ controller.delete = async (req, res) => {
     }
 };
 
-controller.getAllAdmin = async (req, res) => {
-    try{       
-        res.status(200).render("ticket/indexADM",{
-            ticket : Ticket,
-            moment : moment
-            
-        })
-    }catch(error){
-        res.status(500).render("pages/error",{error : "Erro ao exibir os tickets"+error})
-
-    }
-}
-
 controller.getBaseConhecimento = async (req, res) => {
-    
-    try{
-        await Ticket.findByPk(ticketId,{
+
+    const { termoBuscaListener } = require("../ticket/form.ejs/termoBuscaListener");
+    console.log(termoBuscaListener);
+
+    try {
+        await Ticket.findByPk(ticketId, {
             include: [
                 {
-                    model: Ticket
+                    model: Ticket,
                 },
             ],
-    });
-        const termoBusca = req.body(titulo);
-        const resultados = dados.filter(item =>
-            item.titulo.toLowerCase().includes(termoBusca.toLowerCase())
-        );
-        res.status(200).render('baseConhecimento', {resultados});
-      }catch(error){
-        res.status(500).render("pages/error",{error : "Erro ao exibir os tickets"+error})
-      };
+        });
+
+        res.status(200).render('baseConhecimento', { resultados });
+    } catch (error) {
+        res.status(500).render("pages/error", { error: "Erro ao exibir os tickets" + error });
     }
+};
+
 
 module.exports = controller
