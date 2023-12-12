@@ -28,6 +28,10 @@ const Ticket = db.define('ticket', {
       type: DataTypes.STRING,
       allowNull:true,
     },
+    nomeanexo: {
+      type: DataTypes.STRING,
+      allowNull:true,
+    },
     data: {
       type: DataTypes.STRING,
       allowNull: false

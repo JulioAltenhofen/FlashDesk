@@ -24,6 +24,10 @@ const Resposta = db.define('resposta', {
       type: DataTypes.STRING,
       allowNull:true,
     },
+    nomeanexoFormatado: {
+      type: DataTypes.STRING,
+      allowNull:true,
+    },
     pessoaId: {
       type: DataTypes.INTEGER,
       allowNull: false,

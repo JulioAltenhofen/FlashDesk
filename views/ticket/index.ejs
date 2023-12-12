@@ -7,6 +7,10 @@
       <div class="columns">
         <div class="column">
           <a href="/ticket-form/<%= pessoa.id %>" class= "button is-info is-small is-pulled-right" >Abrir ticket</a> 
+          <a class="text-transparent hover:text-transparent is-small is-pulled-right">.............</a>
+          <% if (user && user.role === 'admin') { %>
+                <a href="/tickets" class= "button is-info is-small is-pulled-right" >Ver todos</a> 
+          <% } %>
           <% if (user && user.role === 'admin') { %>
           <h1 class="title size-4">Lista de Tickets de <%= pessoa.nome %></h1>
             <% } else if (user && user.role === 'user') { %>
@@ -14,33 +18,33 @@
           <% } %>
         </div>
       </div>
-
+      
       <% ticket.forEach(ticket =>{ %>
       <div class="flex flex-wrap">
-        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-2 border-b border-t border-black">
           <p>Ticket Nº <%= ticket.id %>
         </div>
-        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-2 border-b border-t border-black">
           <p><%= ticket.titulo %>  
         </div>
-        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-2 border-b border-t border-black">
           <% if (ticket.resposta != null) { %>
             <p><%= ticket.resposta.statusResposta %></p>
           <% } else { %>
             <p><%= ticket.status %></p>
           <% } %>
         </div>
-        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
-          <p><%=  moment(ticket.data).format('YYYY-MM-DD HH:mm:ss') %>  
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-2 border-b border-t border-black">
+          <p><%=  moment(ticket.data).format('DD/MM/YYYY HH:mm:ss') %>  
         </div>
-        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-2 border-b border-t border-black">
           <p class=" pl-16">
             <span>
               <a href="/ticket/<%= ticket.pessoaId %>/<%= ticket.id %>">Ver</a>
             </span>
           </p>
         </div>
-        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-4 border-b border-t border-black">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 p-2 border-b border-t border-black">
           <p class="pl-14">
             <span>
               <a href="/tickets/<%= ticket.pessoaId %>/<%= ticket.id %>?_method=delete" class="has-text-danger">Remover</a>
@@ -49,21 +53,6 @@
         </div>
       </div>
       <% }) %>
-
-      
-    
-        
-       
-              
-              
-              
-              
-            
-          
-              
-              
-
-        
       </div>
     </div>
   </section>

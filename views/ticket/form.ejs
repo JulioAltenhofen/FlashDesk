@@ -1,62 +1,125 @@
-<%- include("../layouts/header", {title: 'FlashDesk'}) %>
+<%- include("../layouts/header", {title: 'FlashDesk' }) %>
 
-<%- include("../layouts/menu") %>
+  <%- include("../layouts/menu") %>
 
-<div class="container">
-  <h1 class="title">Formulário</h1>
-  <form action="/novoticket/<%= pessoaId %>" method="POST" enctype="multipart/form-data">
-    <div class="field">
-      <label class="label">Título</label>
-      <div class="control">
-        <input class="input" type="text" name="title" id="titleInput" placeholder="Digite o título">
-      </div>
-    </div>
+    <div class="container">
+      <h1 class="title">Formulário</h1>
+      <form action="/novoticket/<%= pessoaId %>" method="POST" enctype="multipart/form-data">
+        <div class="field">
+          <label class="label">Título</label>
+          <div class="control">
+            <input class="input" type="text" name="title" id="titleInput" placeholder="Digite o título">
+          </div>
+        </div>
 
-    <script>
-      function termoBuscaListener() {
-        const titleInput = document.getElementById('titleInput');
 
-        titleInput.addEventListener('input', (event) => {
-          console.log(event.target.value);
-        });
-      }
+        <script>
+          function realizarRequisicaoNoBancoDeDadosComTimer(termoDeBusca) {
+            setTimeout(() => {
+              realizarRequisicaoNoBancoDeDados(termoDeBusca);
+            }, 5000);
+          }
 
-      document.addEventListener('DOMContentLoaded', termoBuscaListener);
-    </script>
-    
+          let timeoutId;
 
-    <div class="field">
-      <label class="label">Nivel de urgência</label>
-      <select class="input" name="urgencia" style="height: auto" required placeholder="Selecione o nível de urgência">
-        <option value="" disabled selected>Selecione o nível de urgência</option>
-        <option value="Superficial">Superficial</option>
-        <option value="Leve">Leve</option>
-        <option value="Moderado">Moderado</option>
-        <option value="Severo">Severo</option>
-        <option value="Critico">Crítico</option>
-    </select>
-    </div>
-    <div class="field">
-      <label class="label">Texto</label>
-      <div class="control">
-        <textarea class="input" type="text" name="campoTexto" placeholder="Digite o texto" style="height: 250px;"></textarea>
-      </div>
-    </div>
-      <label class="p-3">
-        <input type="file" name="anexo" class="block w-full text-sm text-slate-500
+          function termoBuscaListener() {
+            const titleInput = document.getElementById('titleInput');
+
+            titleInput.addEventListener('input', (event) => {
+              clearTimeout(timeoutId);
+              const termoDeBusca = event.target.value;
+
+              timeoutId = setTimeout(() => {
+                realizarRequisicaoNoBancoDeDados(termoDeBusca);
+              }, 2500);
+            });
+          }
+
+          document.addEventListener('DOMContentLoaded', termoBuscaListener);
+
+          function realizarRequisicaoNoBancoDeDados(termoDeBusca) {
+            const apiUrl = `/baseconhecimento/${termoDeBusca}`;
+            console.log(apiUrl);
+
+            fetch(apiUrl)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Erro ao obter os dados');
+                }
+                console.log(response);
+                return response.json();
+
+              })
+              .then(data => {
+                mostrarItens(data);
+              })
+              .catch(error => {
+                console.error('Ocorreu um erro:', error);
+              });
+          }
+          function mostrarItens(response) {
+            const titulo = document.querySelector('.field');
+            const textoInicial = document.createElement('p');
+            textoInicial.textContent = 'Aqui estão alguns tickets que podem solucionar seu problema:';
+            titulo.insertAdjacentElement('beforeend', textoInicial);
+            const container = document.createElement('div');
+            container.classList.add('flex', 'flex-wrap');
+
+            response.forEach((item) => {
+              const itemElement = document.createElement('button');
+              itemElement.classList.add('button', 'buttonSugestao');
+              itemElement.textContent = `${item.titulo}`;
+              itemElement.addEventListener('click', () => {
+                window.location.href = `/ticketsugestao/${item.id}`; 
+              });
+
+              container.appendChild(itemElement);
+            });
+
+            titulo.insertAdjacentElement('beforeend', container);
+          }
+
+
+
+
+        </script>
+
+
+        <div class="field">
+          <label class="label">Nivel de urgência</label>
+          <select class="input" name="urgencia" style="height: auto" required
+            placeholder="Selecione o nível de urgência">
+            <option value="" disabled selected>Selecione o nível de urgência</option>
+            <option value="Superficial">Superficial</option>
+            <option value="Leve">Leve</option>
+            <option value="Moderado">Moderado</option>
+            <option value="Severo">Severo</option>
+            <option value="Critico">Crítico</option>
+            <option value="melhoria/sugestao">Melhoria/sugestão</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Texto</label>
+          <div class="control">
+            <textarea class="input" type="text" name="campoTexto" placeholder="Digite o texto"
+              style="height: 250px;"></textarea>
+          </div>
+        </div>
+        <label class="p-3">
+          <input type="file" name="anexo" class="block w-full text-sm text-slate-500
           file:mr-4 file:py-2 file:px-4
           file:rounded-xl file:border-0
           file:text-sm file:font-semibold
           file:bg-blue-50 file:text-blue-700
           hover:file:bg-blue-100
-        "/>
-      </label>
-    <div class="field">
-      <div class="control">
-        <button class="button is-primary" type="submit">Enviar</button>
-      </div>
+        " />
+        </label>
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary" type="submit">Enviar</button>
+          </div>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
-  
-  <%- include("../layouts/footer") %>
+
+    <%- include("../layouts/footer") %>

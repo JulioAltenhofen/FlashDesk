@@ -25,11 +25,16 @@ routes.get("/ticket/:pessoaId/:ticketId",acessarProprioRecurso,ticketController.
 routes.post("/novoticket/:pessoaId",autenticado,ticketController.create)
 routes.delete("/tickets/:pessoaId/:ticketId",acessarProprioRecurso,ticketController.delete)
 routes.get("/ticket-form/:pessoaId",autenticado,ticketController.getRegisterPage)
+routes.get("/ticket/:pessoaId/:ticketId/anexo",autenticado,ticketController.getAnexo)
+routes.get("/baseconhecimento/:termoDeBusca",autenticado,ticketController.getBaseConhecimento)
+routes.get("/ticketsugestao/:ticketId",ticketController.getByIdSugestao)
+
 
 
 //rotas de respostas
 routes.post("/ticket/:pessoaId/:ticketId",acessarProprioRecurso,RespostasController.createResposta)
 routes.post("/ticket/:pessoaId/:ticketId/reabrir",acessarProprioRecurso,RespostasController.reabrirTicket)
+routes.get("/ticket/:pessoaId/:ticketId/anexores",autenticado,RespostasController.getAnexoResposta)
 
 //rotas de pessoas
 routes.get("/form-login",PessoaController.getLoginPage)

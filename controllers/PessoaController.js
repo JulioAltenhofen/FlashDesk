@@ -126,7 +126,7 @@ controller.create = async (req, res) => {
     try{
         const hashDaSenha = await bcrypt.hash(password, 10);
         const pessoa = await Pessoa.create({nome,username,password:hashDaSenha,role})
-        res.status(200).redirect("/") 
+        res.status(200).render('pages/success')
     }catch(error){ 
         res.status(422).render("pages/error",{error: "Erro ao cadastar usuário!"+error})
     }
@@ -147,7 +147,7 @@ controller.update = async (req, res) => {
         pessoa.role = role
         await pessoa.save()
 
-        res.status(200).redirect("/")
+        res.status(200).render('pages/success')
         
         
     }catch (error){

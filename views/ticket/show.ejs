@@ -42,7 +42,7 @@
                         <div class="media">
                             <div class="media-content">
                                 <p class="title is-6"><%= ticket.titulo %></p>
-                                <p class="title is-6"><%= moment(ticket.data).format('YYYY-MM-DD HH:mm:ss') %></p>
+                                <p class="title is-6"><%= moment(ticket.data).format('DD/MM/YYYY HH:mm:ss') %></p>
                                 <p class="title is-6"> Grau de urgência: <%= ticket.urgencia %></p>
                                 <p class="title is-6"> Status: <%= ticket.status%></p>                                         
                             </div>
@@ -81,7 +81,9 @@
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-6"><%= ticket.anexo %></p>
+                                    <button onclick="window.open('/ticket/<%= pessoa.id %>/<%= ticket.id %>/anexo')">
+                                        <%= ticket.nomeanexo %>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +104,7 @@
                                 </div>
                                 <div class="text-right font-bold">
                                     <div>
-                                    <p><%= moment(resposta.dataResposta).format('YYYY-MM-DD HH:mm:ss') %></p> 
+                                    <p><%= moment(resposta.dataResposta).format('DD/MM/YYYY HH:mm:ss') %></p> 
                                 </div>
                             </div>
                         </div>
@@ -124,7 +126,9 @@
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-6"><%= resposta.anexoResposta %></p>
+                                    <button onclick="window.location.href='/ticket/<%= pessoa.id %>/<%= ticket.id %>/anexores'">
+                                        <%= resposta.anexoResposta %>
+                                    </button>
                                 </div>
                             </div>
                         </div>

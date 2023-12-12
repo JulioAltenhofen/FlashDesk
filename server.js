@@ -6,7 +6,7 @@ require("./config/associations")
 var session = require("express-session")
 const passport = require("passport")
 require("./security/authentication")(passport)
-const flash = require('express-flash');
+
 
 
 const server = express()
@@ -26,8 +26,6 @@ server.use((req,res, next) => {
     next()
 })
 
-// const upload = multer({ storage: storage });
-
 //criando um middleware para que substitua requisições POST ou GET por outras quando a URL possui "_method"
 server.use(methodOverride("_method",{methods:["POST","GET"]}));
 
@@ -45,9 +43,6 @@ server.use(session({
     resave: false,
     saveUninitialized: true
   }));
-
-  server.use(flash());
-
 
 //avisando o express do local das views
 server.set("views", path.join(__dirname,"views"))

@@ -4,23 +4,25 @@ const Respostas = require("../models/resposta")
 const multer  = require('multer')
 const moment = require('moment');
 const e = require("express");
+const sequelize = require("sequelize");
 
 
 const controller = {}
 
 controller.getRegisterPage = async (req, res) => {
- 
+    
     const {pessoaId} = req.params
 
     try {
         res.status(200).render("ticket/form",{
-            pessoaId : pessoaId
-            // ticket : new Ticket()
+            pessoaId : pessoaId,
+            tickets : []
         })
     } catch (error) {
         res.status(500).render("pages/error",{error: "Erro ao carregar o formulário!"})
     }
 }
+
 
 controller.getUpdatePage = async (req, res) => {
     const {pessoaId,ticketId} = req.params
@@ -82,13 +84,18 @@ controller.getAll = async (req, res) => {
 
 controller.getAllAdmin = async (req, res) => {
     try{
-        const ticket = await Ticket.findAll()
+        const ticket = await Ticket.findAll({include: [
+            {
+                model: Pessoa,
+                attributes: ['id', 'nome']
+            }
+        ]})
 
-        const pessoa = await Pessoa.findByPk(ticket.pessoa)
-
+        
+        
         res.status(200).render("ticket/indexADM",{
-            ticket : ticket.tickets,
-            pessoa : pessoa,
+            ticket : ticket,
+            // pessoa : pessoa,
             moment : moment
             
         })
@@ -180,7 +187,8 @@ function makeid (length) {
       || file.mimetype === 'image/jpeg' 
       || file.mimetype === 'image/jpg' 
       || file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-      || file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'   ) {
+      || file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      || file.mimetype === 'video/mp4'   ) {
         cb(null, true)
       } else {
         cb(null, false)
@@ -197,23 +205,28 @@ controller.create = async (req, res) => {
         if (!req.file) {
             req.file = "null.png"
         }else{
-            req.file.originalname
+            req.file.filename
         }
+        const anexo = req.file.filename;
+        const nomeanexo = req.file.originalname
         const data = new Date();
-        const dataFormatada = moment(data).format('YYYY-MM-DD HH:mm:ss')
+        const dataFormatada = moment(data).format('DD/MM/YYYY HH:mm:ss')
         const status = "Enviado"
 
         try{
+            
             Ticket.create({
                 titulo:title,
                 campoTexto:campoTexto,
                 urgencia:urgencia,
                 pessoaId:pessoaId,
-                anexo:req.file.orinalname,
+                anexo: anexo,
+                nomeanexo:nomeanexo,
                 data: dataFormatada,
                 status: status})
-            res.status(200).redirect("/") 
+            res.status(200).render("pages/success") 
         }catch(error){ 
+            
             res.status(422).render("pages/error",{error: "Erro ao criar ticket!"})
         }
     });
@@ -257,6 +270,48 @@ controller.update = async (req, res) => {
     }
 }
 
+const fs = require('fs');
+const path = require('path');
+
+controller.getAnexo = async (req, res) => {
+    const { ticketId } = req.params;
+
+    try {
+        const ticket = await Ticket.findByPk(ticketId);
+        
+        if (!ticket) {
+            return res.status(404).send("Ticket não encontrado");
+        }
+
+        const anexoPath = path.join(__dirname, `../public/upload/${ticket.anexo}`);
+        
+        const fileStream = fs.createReadStream(anexoPath);
+
+        const fileFormat = ticket.anexo.split('.').pop().toLowerCase();
+        if (fileFormat === 'pdf') {
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Content-Disposition', `attachment; filename=${ticket.anexo}`);
+        } else if (fileFormat === 'doc' || fileFormat === 'docx') {
+            res.setHeader('Content-Type', 'application/doc');
+            res.setHeader('Content-Disposition', `attachment; filename=${ticket.anexo}`);
+        } else if (fileFormat === 'xls' || fileFormat === 'xlsx') {
+            res.setHeader('Content-Type', 'application/xlsx');
+            res.setHeader('Content-Disposition', `attachment; filename=${ticket.anexo}`);
+        } else if (fileFormat === 'png' || fileFormat === 'jpg' || fileFormat === 'jpeg') {
+            res.setHeader('Content-Type', 'image/jpeg');
+            res.setHeader('Content-Disposition', `inline; filename=${ticket.anexo}`);
+        } else if (fileFormat === 'mp4' || fileFormat === 'avi' || fileFormat === 'mkv') {
+            res.setHeader('Content-Type', 'video/mp4');
+            res.setHeader('Content-Disposition', `inline; filename=${ticket.anexo}`);
+        }        
+        fileStream.pipe(res);
+        
+    } catch (error) {
+        res.status(500).send("Erro ao buscar o anexo");
+    }
+
+    
+}
 
 controller.delete = async (req, res) => {
     const {pessoaId,ticketId} = req.params
@@ -289,24 +344,56 @@ controller.delete = async (req, res) => {
 };
 
 controller.getBaseConhecimento = async (req, res) => {
-
-    const { termoBuscaListener } = require("../ticket/form.ejs/termoBuscaListener");
-    console.log(termoBuscaListener);
-
+    
+    const { termoDeBusca } = req.params;
+   
     try {
-        await Ticket.findByPk(ticketId, {
-            include: [
-                {
-                    model: Ticket,
-                },
-            ],
+        const tickets = await Ticket.findAll({
+            where: { titulo: { [sequelize.Op.like]: `%${termoDeBusca}%` } }
         });
 
-        res.status(200).render('baseConhecimento', { resultados });
-    } catch (error) {
-        res.status(500).render("pages/error", { error: "Erro ao exibir os tickets" + error });
+        res.status(200).json(tickets);
+            
+    } catch(error) {
+        console.log(error)
+        res.status(500).json({ error: "Erro ao exibir os tickets" + error });
     }
 };
+
+controller.getByIdSugestao = async (req, res) => {
+    const {ticketId} = req.params
+
+    try{
+        
+        const ticket = await Ticket.findByPk(ticketId,{
+            include: [
+                {
+                    model: Respostas,
+                    // include: [
+                    //     {
+                    //         model: Pessoa, 
+                          
+                    //     },
+                    // ],
+                },
+            ],
+        })
+        
+        if (!ticket) {
+            return res.status(500).render("pages/error",{error : "ticket não existe!"})
+        }
+        
+        res.status(200).render("ticket/baseConhecimento",{
+            ticket : ticket,
+            moment : moment,
+            // pessoa: pessoa
+        })
+    }catch(error){
+        res.status(500).render("pages/error",{error : "Erro ao exibir o ticket" + error})
+    }
+    
+}
+
 
 
 module.exports = controller

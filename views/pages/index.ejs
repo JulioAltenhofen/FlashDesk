@@ -10,12 +10,13 @@
                 Bem vindo <%= user.nome %>
               </h1>
                 <p class="text-3xl py-24 text-white">Visualize e gerencie seus tickets.</p>
-                <a href="/ticket-form/<%= pessoaId %>" class="bg-blue-800 hover:bg-blue-950 p-3 rounded-xl text-2xl text-white hover:text-white" >Abrir ticket</a> 
-                <a class="text-transparent hover:text-transparent">.............</a> 
-                <a href="/ticket/<%= pessoaId %>" class="bg-blue-800 hover:bg-blue-950 p-3 rounded-xl text-2xl text-white hover:text-white">Ver tickets</a>
+                <div class="flex justify-center">
+                  <a href="/ticket-form/<%= pessoaId %>" class="bg-blue-800 hover:bg-blue-950 p-3 rounded-xl text-2xl text-white hover:text-white mr-4">Abrir ticket</a> 
+                  <a href="/ticket/<%= pessoaId %>" class="bg-blue-800 hover:bg-blue-950 p-3 rounded-xl text-2xl text-white hover:text-white">Ver tickets</a>
+                </div>
+                
             </div><% } else { %>
-            <div class="column  bg-white bg-opacity-20 rounded-2xl text-center  font-serif w-1/3 mx-auto py-52>
-              <div class="grid grid-rows-2 gap-4">
+            <div class="column  bg-white bg-opacity-20 rounded-2xl text-center font-serif w-1/3 mx-auto ">
                 <div>
                   <img src="/img/logoWhite.png" class="h-72 w-80 mx-auto">
                 </div>
@@ -24,7 +25,6 @@
                     SISTEMA GESTOR DE CHAMADOS DE T.I
                   </h2>
                 </div>
-              </div>
               <% } %>
         </div>
       </div>
