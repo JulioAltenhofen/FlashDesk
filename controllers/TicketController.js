@@ -210,7 +210,7 @@ controller.create = async (req, res) => {
         const anexo = req.file.filename;
         const nomeanexo = req.file.originalname
         const data = new Date();
-        const dataFormatada = moment(data).format('DD/MM/YYYY HH:mm:ss')
+        const dataFormatada = moment(data).format('YYYY-MM-DD HH:mm:ss')
         const status = "Enviado"
 
         try{
